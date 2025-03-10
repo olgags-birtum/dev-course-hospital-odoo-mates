@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <odoo>
 
-
-    <record id="hospital_patient_view_tree" model="ir.ui.view">
-        <field name="name">hospital.patient.view.tree</field>
-        <field name="model">hospital.patient</field>
+    <record id="hospital_appointment_view_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.tree</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <tree string="Patients">
-                <field name="name"></field>
-                <field name="gender" optional="show"></field>
-                <field name="date_of_birth" optional="hide"></field>
+            <tree string="Appointments">
+                <field name="reference"></field>
+                <field name="patient_id"></field>
+                <field name="date_of_appointment" optional="show"></field>
+                <field name="note" optional="show"></field>
             </tree>
         </field>
     </record>
 
 
-    <record id="hospital_patient_view_form" model="ir.ui.view">
-        <field name="name">hospital.patient.view.form</field>
-        <field name="model">hospital.patient</field>
+    <record id="hospital_appointment_view_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.form</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
                     <group>
-                        <field name="name"></field>
-                        <field name="gender"></field>
-                        <field name="date_of_birth"></field>
+                       <field name="reference"></field>
+                        <field name="patient_id"></field>
+                        <field name="date_of_appointment" optional="show"></field>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
@@ -36,9 +35,9 @@
             </form>
         </field>
     </record>
-    <record id="hospital_patient_view_kanban" model="ir.ui.view">
-        <field name="name">hospital.patient.view.kanban</field>
-        <field name="model">hospital.patient</field>
+    <record id="hospital_appointment_view_kanban" model="ir.ui.view">
+        <field name="name">hospital.appointment.view.kanban</field>
+        <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <kanban>
                 <templates>
@@ -47,12 +46,12 @@
                             <div class="row">
                                 <div class="col-4">
                                     <strong>
-                                        <field name="name" />
+                                        <field name="patient_id" />
                                     </strong>
                                 </div>
                                 <div class="col-4">
                                     <span class="float-end">
-                                        <field name="gender"></field>
+                                        <field name="date_of_appointment"></field>
 
                                     </span>
 
@@ -60,7 +59,7 @@
                                 <div class="col-4">
                                     <span class="float-end">
 
-                                        <field name="date_of_birth"></field>
+                                        <field name="note"></field>
                                     </span>
 
                                 </div>
@@ -74,21 +73,26 @@
             </kanban>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="action_hospital_patient">
-        <field name="name">Patients</field>
-        <field name="res_model">hospital.patient</field>
+
+
+    <record model="ir.actions.act_window" id="action_hospital_appointment">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,form,kanban</field>
         <field name="help" type='html'>
 
             <p class="o_view_nocontent_smiling_face">
-                Crear nuevo patiente
+                Create new appointment
             </p>
         </field>
     </record>
+
+
     <menuitem
-        id="menu_hospital_patients"
-        name="Patients"
+        id="menu_hospital_appointments"
+        name="Appointments"
         parent="menu_hospital_frontdesk"
-        action='action_hospital_patient'
+        action='action_hospital_appointment'
     />
+
 </odoo>

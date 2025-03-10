@@ -10,10 +10,6 @@
         name="Front Desk"
         parent="menu_hospital_root"
     />
-    <menuitem
-        id="menu_hospital_patients"
-        name="Patients"
-        parent="menu_hospital_frontdesk"
-        action='action_hospital_patient'
-    />
-</odoo>
+
+
+</odoo> 

@@ -3,20 +3,23 @@
 <odoo>
 
 
-    <record id="hospital_patient_view_tree" model="ir.ui.view">
+    <record id="hospital_patient_readonly_view_tree" model="ir.ui.view">
         <field name="name">hospital.patient.view.tree</field>
         <field name="model">hospital.patient</field>
+        <field name="priority">20</field>
         <field name="arch" type="xml">
-            <tree string="Patients">
+            <tree string="View Patients" create="0" edit="0" delete="0">
                 <field name="name"></field>
                 <field name="gender" optional="show"></field>
                 <field name="date_of_birth" optional="hide"></field>
+                <field name="date_of_birth"></field>
+                <field name="date_of_birth"></field>
             </tree>
         </field>
     </record>
 
 
-    <record id="hospital_patient_view_form" model="ir.ui.view">
+    <record id="hospital_patient_readonly_view_form" model="ir.ui.view">
         <field name="name">hospital.patient.view.form</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
@@ -36,48 +39,31 @@
             </form>
         </field>
     </record>
-    <record id="hospital_patient_view_kanban" model="ir.ui.view">
+    <record id="hospital_patient_readonly_view_kanban" model="ir.ui.view">
         <field name="name">hospital.patient.view.kanban</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban create="0" edit="0" delete="0">
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-4">
-                                    <strong>
-                                        <field name="name" />
-                                    </strong>
-                                </div>
-                                <div class="col-4">
-                                    <span class="float-end">
-                                        <field name="gender"></field>
-
-                                    </span>
-
-                                </div>
-                                <div class="col-4">
-                                    <span class="float-end">
-
-                                        <field name="date_of_birth"></field>
-                                    </span>
-
-                                </div>
-
-                            </div>
-                        </div>
-
 
                     </t>
                 </templates>
             </kanban>
         </field>
     </record>
-    <record model="ir.actions.act_window" id="action_hospital_patient">
-        <field name="name">Patients</field>
+
+    <record model="ir.actions.act_window" id="action_hospital_patient_readonly">
+        <field name="name">View Patients</field>
         <field name="res_model">hospital.patient</field>
         <field name="view_mode">tree,form,kanban</field>
+
+        <field name="view_ids"
+            eval="[Command.clear(),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('hospital_patient_readonly_view_tree')}),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('hospital_patient_readonly_view_kanban')}),
+                           (0, 0, {'view_mode': 'form', 'view_id': ref('hospital_patient_readonly_view_form')}),
+                          ]" />
         <field name="help" type='html'>
 
             <p class="o_view_nocontent_smiling_face">
@@ -85,10 +71,12 @@
             </p>
         </field>
     </record>
+
+
     <menuitem
-        id="menu_hospital_patients"
-        name="Patients"
+        id="menu_hospital_patients_readonly"
+        name="View Patients"
         parent="menu_hospital_frontdesk"
-        action='action_hospital_patient'
+        action='action_hospital_patient_readonly'
     />
 </odoo>
