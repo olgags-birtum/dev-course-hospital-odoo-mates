@@ -10,6 +10,7 @@
                 <field name="patient_id"></field>
                 <field name="date_of_appointment" optional="show"></field>
                 <field name="note" optional="show"></field>
+                <field name="state" optional="show"></field>
             </tree>
         </field>
     </record>
@@ -20,18 +21,29 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <form string="">
+                <header>
+
+                    <button string="Ongoing" name="ongoing_appointment"
+                        action="action_ongoing_appointment" type="object" class="oe_highlight"
+                        invisible="state !='confirmed'" />
+
+                    <button string="Done" name="done_appointment"
+                        action="action_done_appointment" type="object" class="oe_highlight"
+                        invisible="state !='ongoing'" />
+
+                    <button string="Cancel" name="cancel_appointment"
+                        action="action_cancel_appointment" type="object" class="oe_highlight"
+                        invisible="state !='confirmed' or 'ongoing'" />
+                    <field name="state" widget="statusbar"></field>
+                </header>
                 <sheet>
                     <group>
-                       <field name="reference"></field>
+                        <field name="reference"></field>
                         <field name="patient_id"></field>
                         <field name="date_of_appointment" optional="show"></field>
                     </group>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" groups="base.group_user" />
 
-                    <field name="message_ids" options="{'post_refresh': 'always'}" />
-                </div>
             </form>
         </field>
     </record>

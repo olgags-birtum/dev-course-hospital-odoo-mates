@@ -3,7 +3,8 @@
     <menuitem
         id="menu_hospital_root"
         name="HMS"
-        sequence="10"
+        sequence="35"
+        web_icon="om_hospital,static/description/icon2.png"
     />
     <menuitem
         id="menu_hospital_frontdesk"
