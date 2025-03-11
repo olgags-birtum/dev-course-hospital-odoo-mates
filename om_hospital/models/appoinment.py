@@ -35,7 +35,7 @@ class HospitalAppointment(models.Model):
     @api.model_create_multi
     # @api.model
     def create(self, vals_list):
-        print("odo mates", vals_list)
+        
         for val in vals_list:
             if not val.get("state") or val["state"] == "draft":
                 val["state"] = "confirmed"
